@@ -1,0 +1,254 @@
+{
+	"info": {
+		"_postman_id": "04cdb659-5615-4b82-9bf4-2931dfff0d1c",
+		"name": "MyCollection",
+		"description": "### Welcome to Postman! This is your first collection. \n\nCollections are your starting point for building and testing APIs. You can use this one to:\n\n• Group related requests\n• Test your API in real-world scenarios\n• Document and share your requests\n\nUpdate the name and overview whenever you’re ready to make it yours.\n\n[Learn more about Postman Collections.](https://learning.postman.com/docs/collections/collections-overview/)",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "45671426",
+		"_collection_link": "https://sarmisha-313759.postman.co/workspace/ea91a6a9-7b64-4d4d-8ca3-b8d56d65e627/collection/45671426-04cdb659-5615-4b82-9bf4-2931dfff0d1c?action=share&source=collection_link&creator=45671426"
+	},
+	"item": [
+		{
+			"name": "Create Request",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test('Verify status code',()=>{pm.response.to.have.statusCode(201);\r",
+							"pm.response.to.have.status(\"Created\")}\r",
+							");\r",
+							"\r",
+							"pm.test(\"verify header\",()=>{pm.response.to.have.header(\"Content-Type\");\r",
+							"pm.expect(pm.response.headers.get('Content-Type')).to.eql('application/json')\r",
+							"});\r",
+							"//pm.test(\"cookie language is present\",()=>{pm.expect(pm.Cookies.has('language')).to.be.true;\r",
+							"//pm.expect(pm.Cookies.has('language')).to.eql('en-gb')});\r",
+							"\r",
+							"pm.test(\"Response time is less than 20 ms\",()=>{pm.expect(pm.response.responseTime).to.be.below(20)\r",
+							"\r",
+							"});\r",
+							"const jsonData= pm.response;\r",
+							"pm.test(\"Asserting value Type\",()=>{pm.expect(jsonData).to.be.an(\"object\");\r",
+							"pm.expect(jsonData.id).to.be.a(\"String\")\r",
+							"\r",
+							"});\r",
+							"//pm.test(\"Test array property\",()=>{pm.expect(jsonData.courses).to.include(\"java\")});\r",
+							"var jsonDat =JSON.parse(responseBody);\r",
+							"console.log(jsonDat);\r",
+							"pm.globals.set(\"id_glb\",jsonDat.id);"
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n   \r\n   \"location\":\"TN\",\r\n   \"phone\":\"09876547890\",\r\n   \"name\":\"Parke\",\r\n    \"courses\":[\"C++\",\"C\"]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{Base_URL_localhost}}",
+					"host": [
+						"{{Base_URL_localhost}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Request",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test('Verify status code',()=>{pm.response.to.have.statusCode(200);\r",
+							"pm.response.to.have.status(\"OK\")}\r",
+							");\r",
+							"\r",
+							"pm.test(\"verify header\",()=>{pm.response.to.have.header(\"Content-Type\");\r",
+							"pm.expect(pm.response.headers.get('Content-Type')).to.eql('application/json')\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Response time is less than 20 ms\",()=>{pm.expect(pm.response.responseTime).to.be.below(100)\r",
+							"\r",
+							"});\r",
+							"const jsonData= pm.response;\r",
+							"pm.test(\"Asserting value Type\",()=>{pm.expect(jsonData).to.be.an(\"object\");\r",
+							"pm.expect(jsonData.id).to.be.a(\"String\")\r",
+							"\r",
+							"});\r",
+							"pm.test(\"Test array property\",()=>{pm.expect(jsonData.json()[0].courses[1]).to.include(\"Python\");\r",
+							"});\r",
+							"pm.test(\"Verify json field value\",()=>{pm.expect(jsonData.json()[0].id).to.eql(\"1\");\r",
+							"pm.expect(jsonData.json()[0].name).to.eql(\"Parker\");\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{Base_URL_localhost}}",
+					"host": [
+						"{{Base_URL_localhost}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Put Request",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"var rusername=Math.random().toString(36).slice(2,8);\r",
+							"var username=\"jim \"+rusername;\r",
+							"console.log(username);"
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test('Verify status code',()=>{pm.response.to.have.statusCode(200);\r",
+							"pm.response.to.have.status(\"OK\")}\r",
+							");"
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"location\":\"US\",\r\n   \"phone\":\"123456547890\",\r\n   //\"name\":\"{{$randomFullName}}\",\r\n   \"name\":\"{{username}}\",\r\n    \"courses\":[\"C++\",\"JAVA\"]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{Base_URL_localhost}}/{{id_glb}}",
+					"host": [
+						"{{Base_URL_localhost}}"
+					],
+					"path": [
+						"{{id_glb}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete Request",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Verify statusCode\",()=>\r",
+							"{pm.response.to.have.status(200);\r",
+							"});\r",
+							"pm.globals.unset(\"id_glb\");"
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{Base_URL_localhost}}/{{id_glb}}",
+					"host": [
+						"{{Base_URL_localhost}}"
+					],
+					"path": [
+						"{{id_glb}}"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"requests": {},
+				"exec": [
+					"pm.environment.set(\"Base_URL_localhost\",\"http://localhost:3000/students\");"
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"requests": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}
